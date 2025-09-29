@@ -33,6 +33,7 @@ class Ball:
         pass
 
     def draw(self):
+        self.image.draw(self.x, self.y)
         pass
 
     def update(self):
@@ -47,7 +48,7 @@ def reset_world():
     world.append(grass)
     boy = [Boy() for n in range(5)]
     world += boy
-    balls = [Ball() for n in range(5)]
+    balls = [Ball() for n in range(20)]
     world += balls
 
 
