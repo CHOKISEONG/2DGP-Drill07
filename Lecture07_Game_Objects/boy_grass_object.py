@@ -29,8 +29,8 @@ class Ball:
     def __init__(self):
         if random.randint(0,1) : self.image = load_image('ball21x21.png')
         else: self.image = load_image('ball41x41.png')
-        self.x, self.y = random.randint(40,760), 599
-        self.speed = random.randint(1,5)
+        self.x, self.y = random.randint(40,760), 599.0
+        self.speed = random.uniform(3.0,7.0)
         pass
 
     def draw(self):
@@ -38,7 +38,8 @@ class Ball:
         pass
 
     def update(self):
-        self.y -= self.speed
+        if self.y >= 65:
+            self.y -= self.speed
         pass
 
 def reset_world():
