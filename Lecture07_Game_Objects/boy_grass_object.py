@@ -25,6 +25,16 @@ class Boy:
         self.frame = (self.frame + 1) % 8
         self.x += 5
 
+class Ball:
+    def __init__(self):
+        pass
+
+    def draw(self):
+        pass
+
+    def update(self):
+        pass
+
 def reset_world():
     global running
     global world # 모든 객체들을 갖고있는 리스트
@@ -34,6 +44,8 @@ def reset_world():
     world.append(grass)
     boy = [Boy() for n in range(5)]
     world += boy
+    balls = [Ball() for n in range(5)]
+    world += balls
 
 
 def handle_events():
