@@ -40,6 +40,8 @@ class Ball:
     def update(self):
         if self.y >= 65:
             self.y -= self.speed
+        else:
+            self.y = 62
         pass
 
 def reset_world():
