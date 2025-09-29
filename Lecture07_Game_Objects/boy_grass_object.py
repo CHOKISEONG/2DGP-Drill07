@@ -1,32 +1,39 @@
 from pico2d import *
 import random
 
-
 # Game object class here
-
 class Grass:
     def __init__(self):
         self.image = load_image('grass.png')
 
     def draw(self):
-        self.image.draw(400, 30)
+        self.image.draw(400,30)
 
     def update(self):
         pass
 
-
 class Boy:
     def __init__(self):
-        self.x, self.y = random.randint(0, 800), 90
-        self.frame = 0
         self.image = load_image('run_animation.png')
+        self.x, self.y = random.randint(0,400), 90
+        self.frame = random.randint(0,7)
+
+    def draw(self):
+        self.image.clip_draw(self.frame * 100,0,100,100,self.x,self.y)
 
     def update(self):
         self.frame = (self.frame + 1) % 8
         self.x += 5
 
-    def draw(self):
-        self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+def reset_world():
+    global running
+    global world # 모든 객체들을 갖고있는 리스트
+    world = []
+    running = True
+    grass = Grass()
+    world.append(grass)
+    boy = [Boy() for n in range(5)]
+    world += boy
 
 
 def handle_events():
@@ -38,43 +45,22 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
-
-def reset_world():
-    global running
-    global grass
-    global team
-    global world
-
-    running = True
-    world = []
-
-    grass = Grass()
-    world.append(grass)
-
-    team = [Boy() for i in range(10)]
-    world += team
-
-
 def update_world():
-    for o in world:
-        o.update()
-    pass
-
+    for gameObject in world:
+        gameObject.update()
 
 def render_world():
     clear_canvas()
-    for o in world:
-        o.draw()
+    for gameObject in world:
+        gameObject.draw()
     update_canvas()
-
 
 open_canvas()
 reset_world()
-# game loop
 while running:
     handle_events()
     update_world()
     render_world()
     delay(0.05)
-# finalization code
+
 close_canvas()
